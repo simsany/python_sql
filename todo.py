@@ -169,7 +169,7 @@ def task5():
         cursor.execute("""UPDATE todo
 SET done = true
 WHERE user_id = 2;""")
-        rows = pd.read_sql_query('select * from todo', connection)
+        rows = pd.read_sql_query('select * from todo order by id asc', connection)
         print(rows,"\n\n")
             
         cursor.close()
