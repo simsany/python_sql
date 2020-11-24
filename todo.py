@@ -99,7 +99,7 @@ def task3():
         connection.autocommit = True
 
         cursor = connection.cursor()
-        statements=read_from_file('statements.txt')
+        statements=read_from_file('statements.sql')
         for statement in statements:
             cursor.execute(statement)
 
