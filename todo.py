@@ -34,6 +34,12 @@ def task1():
                                     CREATE TABLE todo(id int PRIMARY KEY, task varchar(50),user_id int,
                                     FOREIGN KEY (user_id) REFERENCES users(id) );""")
 
+    rows = pd.read_sql_query("SELECT * FROM users;", connection)
+    print(rows, "\n\n")
+    rows = pd.read_sql_query("SELECT * FROM todo;", connection)
+    print(rows, "\n\n")
+
+
    
     
    
@@ -149,9 +155,6 @@ def main():
     task2()
     task3()
     manual()
-    
-
-
     task4()
     task5()
     task6()
