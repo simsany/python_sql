@@ -87,6 +87,9 @@ def task5():
     rows = pd.read_sql_query('select * from todo order by id asc', connection)
     print(rows, "\n\n")
 
+    rows = pd.read_sql_query('select * from users order by id asc', connection)
+    print(rows, "\n\n")
+
 
 def task6():
     
