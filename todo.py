@@ -1,6 +1,7 @@
 import psycopg2
 import pandas as pd
 
+
 try:
 
     user_name = "postgres"
@@ -33,10 +34,9 @@ def task1():
                                     CREATE TABLE todo(id int PRIMARY KEY, task varchar(50),user_id int,
                                     FOREIGN KEY (user_id) REFERENCES users(id) );""")
 
-    rows = pd.read_sql_query("SELECT * FROM users ;", connection)
-    print(rows, "\n\n")
-    rows = pd.read_sql_query("SELECT * FROM todo ;", connection)
-    print(rows, "\n\n")
+   
+    
+   
 
 
 def task2():
@@ -107,14 +107,41 @@ def task7():
     print(cursor.fetchall(), "\n\n")
 
 
+
+
 def main():
     task1()
     task2()
     task3()
-    task4()
-    task5()
-    task6()
-    task7()
+
+    input("Would you like to input any new record? y/n")
+    table=input("Which table would you like to update?")
+    given_datas = []
+    rows = pd.read_sql_query(f"Select * from {table};", connection)
+    cursor.execute("""SELECT Column_name, DATA_TYPE
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE 
+     TABLE_NAME = 'todo'""")
+    dtypes=cursor.fetchall()
+    for index,item in enumerate(rows.columns):
+
+        if 'INT' in dtypes[index][1].upper():
+    
+            given_datas.append(item)
+            
+        else:
+            given_datas.append(f"'{item}'")
+            
+   
+       
+    cursor.execute(f"INSERT INTO {table} VALUES ({','.join(given_datas)})")
+    
+
+
+    # task4()
+    # task5()
+    # task6()
+    # task7()
     cursor.close()
 
 
