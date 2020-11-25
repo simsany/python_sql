@@ -93,6 +93,10 @@ def task6():
     print('After task #6:\n\n')
 
     cursor.execute("Delete from todo where done = true;")
+    rows = pd.read_sql_query('select * from users', connection)
+    print(rows, "\n\n")
+
+
     rows = pd.read_sql_query('select * from todo', connection)
     print(rows, "\n\n")
 
