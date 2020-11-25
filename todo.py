@@ -104,8 +104,43 @@ def task7():
     cursor.execute("DROP table users;")
     cursor.execute("""SELECT table_name FROM information_schema.tables
        WHERE table_schema = 'public'""")
-    print(cursor.fetchall(), "\n\n")
+    
+def manual ():
+        user_input=input("Would you like to input any new record? y/n:  ").upper()
+        while user_input == "Y":
 
+            table=input("Which table would you like to update?  ")
+            given_datas = []
+            rows = pd.read_sql_query(f"Select * from {table};", connection)
+
+            cursor.execute(f"""SELECT Column_name, DATA_TYPE
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE 
+            TABLE_NAME = '{table}'""")
+
+            dtypes=cursor.fetchall()
+            for index,item in enumerate(rows):
+                for i in range(len(dtypes)):
+                    if item == dtypes[i][0]:
+                        temp=dtypes[index]
+                        dtypes[index]=dtypes[i]
+                        dtypes[i]=temp
+            
+
+            for index,item in enumerate(rows.columns):
+                data=input(f"{item}: ")
+                dtype=dtypes[index][1]
+                if 'INT' in dtype.upper():
+            
+                    given_datas.append(data)
+                    
+                else:
+                    given_datas.append(f"'{data}'")
+                    
+        
+            
+            cursor.execute(f"INSERT INTO {table} VALUES ({','.join(given_datas)})")
+            user_input=input("Would you like to input any new record? y/n:  ").upper()
 
 
 
@@ -113,36 +148,14 @@ def main():
     task1()
     task2()
     task3()
-
-    input("Would you like to input any new record? y/n")
-    table=input("Which table would you like to update?")
-    given_datas = []
-    rows = pd.read_sql_query(f"Select * from {table};", connection)
-    cursor.execute("""SELECT Column_name, DATA_TYPE
-FROM INFORMATION_SCHEMA.COLUMNS
-WHERE 
-     TABLE_NAME = 'todo'""")
-    dtypes=cursor.fetchall()
-    for index,item in enumerate(rows.columns):
-        input(f"{item}: ")
-        dtype=dtypes[index][1]
-        if 'INT' in dtype.upper():
-    
-            given_datas.append(item)
-            
-        else:
-            given_datas.append(f"'{item}'")
-            
-   
-       
-    cursor.execute(f"INSERT INTO {table} VALUES ({','.join(given_datas)})")
+    manual()
     
 
 
-    # task4()
-    # task5()
-    # task6()
-    # task7()
+    task4()
+    task5()
+    task6()
+    task7()
     cursor.close()
 
 
