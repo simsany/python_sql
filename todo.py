@@ -124,8 +124,9 @@ WHERE
      TABLE_NAME = 'todo'""")
     dtypes=cursor.fetchall()
     for index,item in enumerate(rows.columns):
-
-        if 'INT' in dtypes[index][1].upper():
+        input(f"{item}: ")
+        dtype=dtypes[index][1]
+        if 'INT' in dtype.upper():
     
             given_datas.append(item)
             
