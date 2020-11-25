@@ -20,7 +20,7 @@ def read_from_file(filepath):
     statements = []
     with open(filepath, 'r', encoding='UTF8') as file:
         for line in file:
-            statements.append(line)
+            statements.append(line.split("+"))
     return statements
 
 
@@ -54,7 +54,8 @@ def task3():
 
     statements = read_from_file('statements.sql')
     for statement in statements:
-        cursor.execute(statement)
+       
+        cursor.execute(f"INSERT INTO {statement[0]} VALUES {statement[1][:-1]}")
 
     rows = pd.read_sql_query("SELECT * FROM users;", connection)
     print(rows, "\n\n")
