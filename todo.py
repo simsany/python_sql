@@ -25,7 +25,7 @@ def read_from_file(filepath):
 
 
 def task1():
-    cursor = globals()['cursor']
+    
     print('After task #1:\n\n')
     cursor.execute("DROP TABLE IF EXISTS users CASCADE;")
     cursor.execute("DROP TABLE IF EXISTS todo CASCADE;")
@@ -40,7 +40,7 @@ def task1():
 
 
 def task2():
-    cursor = globals()['cursor']
+    
     print('After task #2:\n\n')
     cursor.execute("""ALTER TABLE todo ADD COLUMN done boolean DEFAULT FALSE;""")
 
@@ -49,7 +49,7 @@ def task2():
 
 
 def task3():
-    cursor = globals()['cursor']
+    
     print('After task #3:\n\n')
 
     statements = read_from_file('statements.sql')
@@ -70,7 +70,7 @@ def task4():
 
 
 def task5():
-    cursor = globals()['cursor']
+    
     print('After task #5:\n\n')
 
     cursor.execute("""UPDATE todo
@@ -82,7 +82,7 @@ def task5():
 
 
 def task6():
-    cursor = globals()['cursor']
+    
     print('After task #6:\n\n')
 
     cursor.execute("Delete from todo where done = true;")
@@ -91,7 +91,7 @@ def task6():
 
 
 def task7():
-    cursor = globals()['cursor']
+    
     print('After task #7:\n\n')
 
     cursor.execute("DROP table todo;")
